@@ -44,9 +44,11 @@ public class EmployeePayrollTest {
 		
 		assertTrue(Files.notExists(playPath));
 
+		//Create Directory
 	    Files.createDirectory(playPath);
 	    assertTrue(Files.exists(playPath));
 
+	    //Create File
 	    IntStream.range(1,10).forEach(cntr -> {
 	    Path tempFile = Paths.get(playPath+"/temp"+cntr);
 	    assertTrue(Files.notExists(tempFile));
@@ -56,13 +58,21 @@ public class EmployeePayrollTest {
 	    catch(IOException e) {}
 	    assertTrue(Files.exists(tempFile));
 	    });
-
-	        Files.list(playPath).filter(Files::isRegularFile).forEach(System.out::println);
-	        Files.newDirectoryStream(playPath).forEach(System.out::println);
-	        Files.newDirectoryStream(playPath,path -> path.toFile().isFile() && path.toString().startsWith("temp"))
+	    
+	    //List Files , Directories as well as Files with Extension
+	    Files.list(playPath).filter(Files::isRegularFile).forEach(System.out::println);
+	    Files.newDirectoryStream(playPath).forEach(System.out::println);
+	    Files.newDirectoryStream(playPath,path -> path.toFile().isFile() && path.toString().startsWith("temp"))
 	                .forEach(System.out::println);
 
 
 	    }
+	
+	 	@Test
+		public void givenDirectoryWhenWatchedListAllTheActivities() throws IOException{
+			Path dir=Paths.get(HOME+"/"+PLAY_WITH_NIO);
+			Files.list(dir).filter(Files::isRegularFile).forEach(System.out::println);
+			new Java8WatchService(dir).processEvents();
+		}
 
 	}
