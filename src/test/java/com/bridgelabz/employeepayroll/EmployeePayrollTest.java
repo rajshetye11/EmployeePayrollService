@@ -17,16 +17,16 @@ public class EmployeePayrollTest {
 	private static String HOME = System.getProperty("user.home");
 	private static String PLAY_WITH_NIO = "TempPlayGround";
 	
-	 private static void deleteFolder(File file){
-	        for (File subFile : file.listFiles()) {
-	            if(subFile.isDirectory()) {
-	                deleteFolder(subFile);
-	            } else {
-	                subFile.delete();
-	            }
-	        }
-	        file.delete();
-	    }
+//	 private static void deleteFolder(File file){
+//	        for (File subFile : file.listFiles()) {
+//	            if(subFile.isDirectory()) {
+//	                deleteFolder(subFile);
+//	            } else {
+//	                subFile.delete();
+//	            }
+//	        }
+//	        file.delete();
+//	    }
 	
 	
 	@Test
@@ -38,8 +38,7 @@ public class EmployeePayrollTest {
 		//Delete File and Check File Not Exist
 		Path playPath = Paths.get(HOME + "/" +PLAY_WITH_NIO);
 		if(Files.exists(playPath)) {
-			 File path = new File(playPath.toString());
-	            deleteFolder(path);
+			FileUtils.deleteFiles(playPath.toFile());
 		}
 		
 		assertTrue(Files.notExists(playPath));
