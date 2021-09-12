@@ -45,6 +45,18 @@ public class PayrollFileIOService {
 			return entries;
 		}
 
-		
+		public List<EmployeePayroll> readData(){
+			List<EmployeePayroll> employeePayrollList=new ArrayList<>();
+			try {
+				Files.lines(new File("payroll-file.txt").toPath())
+				.map(line->line.trim())
+				.forEach(line->System.out.println(line));
+				
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			return employeePayrollList;
+			
+		}
 
 	}
